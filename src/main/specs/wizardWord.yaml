@@ -1,0 +1,121 @@
+openapi: 3.0.1
+info:
+  title: WizardWorldApi
+  contact:
+    name: cheng.bo.ucd@gmail.com
+  version: 0.0.1
+servers:
+  - url: https://wizard-world-api.herokuapp.com
+paths:
+  /Elixirs:
+    get:
+      operationId:
+        get-elixirs
+      tags:
+        - Elixirs
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Elixir'
+  /Ingredients:
+    get:
+      operationId:
+        get-ingredients
+      tags:
+        - Ingredients
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ingredient'
+components:
+  schemas:
+    ElixirDifficulty:
+      enum:
+        - Unknown
+        - Advanced
+        - Moderate
+        - Beginner
+        - OrdinaryWizardingLevel
+        - OneOfAKind
+      type: string
+    Elixir:
+      required:
+        - id
+        - name
+        - effect
+        - sideEffects
+        - characteristics
+        - time
+        - difficulty
+        - ingredients
+        - inventors
+        - manufacturer
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        effect:
+          type: string
+          nullable: true
+        sideEffects:
+          type: string
+          nullable: true
+        characteristics:
+          type: string
+          nullable: true
+        time:
+          type: string
+          nullable: true
+        difficulty:
+          $ref: '#/components/schemas/ElixirDifficulty'
+        ingredients:
+          type: array
+          items:
+            $ref: '#/components/schemas/Ingredient'
+        inventors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ElixirInventor'
+        manufacturer:
+          type: string
+          nullable: true
+    ElixirInventor:
+      type: object
+      required:
+        - id
+        - firstName
+        - lastName
+      properties:
+        id:
+          type: string
+          format: uuid
+        firstName:
+          type: string
+          nullable: true
+        lastName:
+          type: string
+          nullable: true
+    Ingredient:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
