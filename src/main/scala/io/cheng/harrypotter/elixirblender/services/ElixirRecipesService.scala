@@ -20,7 +20,7 @@ final class ElixirRecipesService() {
     * @return
     *   a set of elixirs that can be made from provided ingredients
     */
-  def findAllBlendableFromIngredientsByTopologicalSort(
+  def findAllBlendableFromIngredients(
       recipes: Seq[Elixir],
       ingredients: Seq[Ingredient]
   ): Set[Elixir] = {
@@ -69,7 +69,7 @@ final class ElixirRecipesService() {
     }
   }
 
-  private[services] def populateIngredientToRecipesMap(recipes: Seq[Elixir]) = {
+  private[services] def populateIngredientToRecipesMap(recipes: Seq[Elixir]): mutable.Map[Ingredient, Seq[Elixir]] = {
     val ingredientToRecipesMap: mutable.Map[Ingredient, Seq[Elixir]] =
       recipes.foldLeft(mutable.Map[Ingredient, Seq[Elixir]]()) { case (aggrMap, elixir) =>
         elixir.ingredients.foreach(aggrMap.updateWith(_)(_ combine Option(Seq(elixir))))
@@ -78,7 +78,7 @@ final class ElixirRecipesService() {
     ingredientToRecipesMap
   }
 
-  private[services] def populateIngredientsCountDownMap(recipes: Seq[Elixir]) = {
+  private[services] def populateIngredientsCountDownMap(recipes: Seq[Elixir]): mutable.Map[Elixir, Int] = {
     val elixirIngredientsCountDownMap: mutable.Map[Elixir, Int] =
       mutable.Map.from(recipes.map(r => r -> r.ingredients.size))
     elixirIngredientsCountDownMap

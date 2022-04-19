@@ -28,7 +28,7 @@ object ElixirBlenderApp extends Simple {
         _ <- logger.info(
             s"after filtering out non-blendable recipes, there are ${filteredRecipes.size} recipes left."
         )
-        canBlendSet = blendService.findAllBlendableFromIngredientsByTopologicalSort(
+        canBlendSet = blendService.findAllBlendableFromIngredients(
             filteredRecipes,
             ingredients
         )

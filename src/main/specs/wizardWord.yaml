@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: WizardWorldApi
   contact:
-    name: cheng.bo.ucd@gmail.com
+    name: chenggit
   version: 0.0.1
 servers:
   - url: https://wizard-world-api.herokuapp.com

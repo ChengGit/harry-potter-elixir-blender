@@ -17,21 +17,21 @@ class ElixirRecipesServiceSpec extends AnyFlatSpec with Matchers with ElixirReci
   }
 
   it should "find elixirs whose ingredients are in provided ingredient lists" in {
-    service.findAllBlendableFromIngredientsByTopologicalSort(
+    service.findAllBlendableFromIngredients(
         Seq(allBaseIngredientsElixir1, allBaseIngredientsElixir2),
         Seq(baseIngredient1, baseIngredient2, baseIngredient3)
     ) should contain theSameElementsAs Seq(allBaseIngredientsElixir1, allBaseIngredientsElixir2)
   }
 
   it should "find elixirs whose ingredients are have both base ingredients and sub-recipes" in {
-    service.findAllBlendableFromIngredientsByTopologicalSort(
+    service.findAllBlendableFromIngredients(
         Seq(elixirRequiringIntermediateElixir, intermediateElixir),
         Seq(baseIngredient1, baseIngredient2, baseIngredient3)
     )
   }
 
   it should "not blend any elixir with missing ingredients" in {
-    service.findAllBlendableFromIngredientsByTopologicalSort(
+    service.findAllBlendableFromIngredients(
         Seq(elixirRequiringMissingIngredient),
         Seq(baseIngredient1, baseIngredient2, baseIngredient3)
     ) shouldBe empty
